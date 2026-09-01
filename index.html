@@ -408,39 +408,96 @@
     .skill-row{grid-template-columns:1fr; gap:10px;}
   }
 
-  /* ---------- Experience (ledger timeline) ---------- */
-  .exp-item{
-    display:grid;
-    grid-template-columns: 150px 1fr;
-    gap:30px;
-    padding:30px 0;
-    border-bottom:1px solid rgba(32,26,18,0.14);
+  /* ---------- Experience (rail timeline + cards) ---------- */
+  .exp-timeline{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
   }
-  .exp-item:first-child{border-top:1px solid rgba(32,26,18,0.14);}
+  .exp-timeline::before{
+    content:'';
+    position:absolute;
+    left:134px;
+    top:6px;
+    bottom:6px;
+    width:1px;
+    background:repeating-linear-gradient(180deg, rgba(32,26,18,0.24) 0 6px, transparent 6px 12px);
+  }
+  .exp-item{
+    position:relative;
+    display:grid;
+    grid-template-columns: 134px 1fr;
+  }
   .exp-date{
+    position:relative;
     font-family:var(--mono);
-    font-size:12px;
+    font-size:11.5px;
     color:var(--ink-text-low);
     letter-spacing:0.03em;
-    padding-top:3px;
+    padding-top:30px;
+    padding-right:26px;
+    text-align:right;
+  }
+  .exp-date::after{
+    content:'';
+    position:absolute;
+    right:-5px; top:34px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 4px var(--paper), 0 0 0 5px rgba(198,161,91,0.55);
+  }
+  .exp-card{
+    background:var(--cream);
+    border:1px solid rgba(32,26,18,0.12);
+    border-left:3px solid var(--gold);
+    border-radius:3px 8px 8px 3px;
+    padding:26px 30px;
+    margin-left:26px;
+    box-shadow:0 6px 18px rgba(32,26,18,0.05);
+    transition:transform .25s ease, box-shadow .25s ease, border-left-color .25s ease;
+  }
+  .exp-item:hover .exp-card{
+    transform:translateY(-4px);
+    box-shadow:0 16px 34px rgba(32,26,18,0.13);
+    border-left-color:var(--rust);
   }
   .exp-role{
     font-family:var(--serif);
-    font-size:21px;
+    font-size:22px;
     font-weight:600;
-    margin:0 0 4px;
+    margin:0 0 6px;
     color:var(--ink-text);
   }
   .exp-org{
+    display:inline-block;
     font-family:var(--mono);
-    font-size:12.5px;
+    font-size:11.5px;
     color:var(--teal);
-    margin-bottom:14px;
-    letter-spacing:0.02em;
+    margin-bottom:18px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    background:rgba(63,111,102,0.09);
+    padding:4px 10px;
+    border-radius:3px;
   }
-  .exp-list{margin:0; padding-left:18px; color:var(--ink-text-mid); font-size:14.5px;}
-  .exp-list li{margin-bottom:7px;}
-  @media (max-width:700px){ .exp-item{grid-template-columns:1fr; gap:8px;} }
+  .exp-list{margin:0; padding-left:0; list-style:none; color:var(--ink-text-mid); font-size:14.5px;}
+  .exp-list li{position:relative; padding-left:20px; margin-bottom:9px; line-height:1.6;}
+  .exp-list li::before{
+    content:'';
+    position:absolute; left:0; top:8px;
+    width:6px; height:6px;
+    background:var(--gold);
+    transform:rotate(45deg);
+  }
+  @media (max-width:700px){
+    .exp-timeline::before{ left:6px; }
+    .exp-item{grid-template-columns:1fr;}
+    .exp-date{ text-align:left; padding:0 0 10px 26px; }
+    .exp-date::after{ left:1px; right:auto; top:5px; }
+    .exp-card{ margin-left:22px; padding:22px; }
+  }
 
   /* ---------- Projects ---------- */
   .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
@@ -786,36 +843,38 @@
         <h2 class="sec-title">Experience</h2>
         <div class="sec-rule"></div>
       </div>
-      <div class="exp-item">
-        <div class="exp-date">Sep 2025 — Jul 2026</div>
-        <div>
-          <div class="exp-role">Data Analyst Intern</div>
-          <div class="exp-org">Religare Broking Ltd</div>
-          <ul class="exp-list">
-            <li>Built and maintained <b>10+ daily, weekly, and monthly MIS reports</b> for business stakeholders using Oracle SQL and Advanced Excel.</li>
-            <li>Wrote SQL queries to pull, validate, and analyze high-volume data against custom reporting requirements.</li>
-            <li>Connected Power Query directly to Oracle SQL, turning a manual data-prep process into a one-click refresh.</li>
-            <li>Automated report distribution to <b>200-300 stakeholders</b> by email, cutting prep and delivery time from 3-4 hours to roughly <b>20 minutes</b>.</li>
-            <li>Pulled and consolidated data across multiple Oracle tables using joins, subqueries, CTEs, and window functions to support MIS reporting and ad-hoc requests.</li>
-            <li>Ran data validation and reconciliation checks that kept reporting accuracy <b>above 99%</b> across business reports.</li>
-            <li>Designed and maintained <b>8+ interactive Power BI dashboards</b> covering branch performance, sales trends, revenue, and productivity KPIs.</li>
-            <li>Delivered ad-hoc analysis so stakeholders could make faster, data-driven decisions.</li>
-            <li>Worked with cross-functional teams to scope reporting needs and streamline existing workflows.</li>
-          </ul>
+      <div class="exp-timeline">
+        <div class="exp-item">
+          <div class="exp-date">Sep 2025 — Jul 2026</div>
+          <div class="exp-card">
+            <div class="exp-role">Data Analyst Intern</div>
+            <div class="exp-org">Religare Broking Ltd</div>
+            <ul class="exp-list">
+              <li>Built and maintained <b>10+ daily, weekly, and monthly MIS reports</b> for business stakeholders using Oracle SQL and Advanced Excel.</li>
+              <li>Wrote SQL queries to pull, validate, and analyze high-volume data against custom reporting requirements.</li>
+              <li>Connected Power Query directly to Oracle SQL, turning a manual data-prep process into a one-click refresh.</li>
+              <li>Automated report distribution to <b>200-300 stakeholders</b> by email, cutting prep and delivery time from 3-4 hours to roughly <b>20 minutes</b>.</li>
+              <li>Pulled and consolidated data across multiple Oracle tables using joins, subqueries, CTEs, and window functions to support MIS reporting and ad-hoc requests.</li>
+              <li>Ran data validation and reconciliation checks that kept reporting accuracy <b>above 99%</b> across business reports.</li>
+              <li>Designed and maintained <b>8+ interactive Power BI dashboards</b> covering branch performance, sales trends, revenue, and productivity KPIs.</li>
+              <li>Delivered ad-hoc analysis so stakeholders could make faster, data-driven decisions.</li>
+              <li>Worked with cross-functional teams to scope reporting needs and streamline existing workflows.</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Sep 2022 — May 2024</div>
-        <div>
-          <div class="exp-role">Relationship Manager</div>
-          <div class="exp-org">Religare Broking Ltd</div>
-          <ul class="exp-list">
-            <li>Managed a portfolio of <b>100+ clients</b>, advising on investment and financial planning aligned to individual goals.</li>
-            <li>Tracked equity and mutual fund market trends to inform client recommendations and improve engagement.</li>
-            <li>Grew portfolio value by roughly <b>15%</b> and improved client retention through proactive relationship management.</li>
-            <li>Maintained <b>99%+ accuracy</b> in client documentation while meeting compliance and regulatory standards.</li>
-            <li>Built long-term client relationships while consistently hitting business targets.</li>
-          </ul>
+        <div class="exp-item">
+          <div class="exp-date">Sep 2022 — May 2024</div>
+          <div class="exp-card">
+            <div class="exp-role">Relationship Manager</div>
+            <div class="exp-org">Religare Broking Ltd</div>
+            <ul class="exp-list">
+              <li>Managed a portfolio of <b>100+ clients</b>, advising on investment and financial planning aligned to individual goals.</li>
+              <li>Tracked equity and mutual fund market trends to inform client recommendations and improve engagement.</li>
+              <li>Grew portfolio value by roughly <b>15%</b> and improved client retention through proactive relationship management.</li>
+              <li>Maintained <b>99%+ accuracy</b> in client documentation while meeting compliance and regulatory standards.</li>
+              <li>Built long-term client relationships while consistently hitting business targets.</li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="exp-resume-cta" id="expResumeCta"></div>
