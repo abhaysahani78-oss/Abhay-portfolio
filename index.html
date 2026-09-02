@@ -1434,6 +1434,29 @@ iframe { max-width:100%; }
     }
   }
 
+  function isIOSDevice(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function downloadResume(e){
+    e.preventDefault();
+    const href = resumeDownloadBtn.getAttribute('href');
+    if(!href) return;
+    if(isIOSDevice()){
+      const opened = window.open(href, '_blank');
+      if(!opened) window.location.href = href;
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = href;
+    a.download = 'Abhay_Sahani_Resume.pdf';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
   function openResumeModal(){
     if(!heroResumeBtn || !resumeModal) return;
     const resumeHref = heroResumeBtn.getAttribute('href');
@@ -1451,6 +1474,10 @@ iframe { max-width:100%; }
       e.preventDefault();
       openResumeModal();
     });
+  }
+
+  if(resumeDownloadBtn){
+    resumeDownloadBtn.addEventListener('click', downloadResume);
   }
 
   // The Experience-section résumé CTA is created by the existing script above.
