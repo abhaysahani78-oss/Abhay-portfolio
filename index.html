@@ -509,6 +509,9 @@
     position:relative;
   }
   @media (max-width:480px){ .proj-card{padding:22px;} }
+  @media (max-width:700px){
+    #credentials{margin-top:34px;}
+  }
   .proj-case{
     font-family:var(--mono);
     font-size:11px;
@@ -553,6 +556,9 @@
   .cred-date{font-family:var(--mono); font-size:11.5px; color:var(--ink-text-low); margin-bottom:12px;}
   .cred-desc{font-size:13.5px; color:var(--ink-text-mid); margin:0;}
   @media (max-width:860px){ .cred-grid{grid-template-columns:1fr;} }
+  @media (max-width:700px){
+    #credentials{margin-top:32px;}
+  }
 
   /* ---------- Clickable credential cards ---------- */
   .cred-clickable{
@@ -913,6 +919,34 @@
     .project-modal-body ul{font-size:13.5px;}
   }
 
+
+/* Responsive final normalization: preserve the existing design while making every viewport scale cleanly. */
+html { width:100%; max-width:100%; overflow-x:hidden; scroll-behavior:smooth; }
+body { width:100%; max-width:100%; min-width:0; overflow-x:hidden; }
+*, *::before, *::after { box-sizing:border-box; }
+img, svg, video, canvas { max-width:100%; height:auto; }
+iframe { max-width:100%; }
+
+/* Fluid type/layout helpers for very wide and very small screens. */
+@media (min-width: 1600px) {
+  .container, .wrap, .inner, main, section { max-width: 1440px; margin-left:auto; margin-right:auto; }
+}
+@media (max-width: 1200px) {
+  .container, .wrap, .inner, main, section { max-width:100%; }
+}
+@media (max-width: 768px) {
+  html { font-size:clamp(14px, 1.8vw, 16px); }
+  body { min-width:320px; }
+  .container, .wrap, .inner, main, section { width:100%; max-width:100%; }
+  input, textarea, select, button { max-width:100%; }
+}
+@media (max-width: 480px) {
+  html { font-size:clamp(13px, 3.5vw, 15px); }
+  body { min-width:320px; }
+}
+@media (orientation:landscape) and (max-height:600px) and (max-width:900px) {
+  body { min-width:0; }
+}
 </style>
 </head>
 <body>
